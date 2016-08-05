@@ -360,6 +360,8 @@ void pubsubCommand(client *c) {
             addReplyBulk(c,c->argv[j]);
             addReplyLongLong(c,l ? listLength(l) : 0);
         }
+    } else if (!strcasecmp(c->argv[1]->ptr,"channel_count")) {
+        addReplyLongLong(c, dictSize(server.pubsub_channels));
     } else if (!strcasecmp(c->argv[1]->ptr,"numpat") && c->argc == 2) {
         /* PUBSUB NUMPAT */
         addReplyLongLong(c,listLength(server.pubsub_patterns));
